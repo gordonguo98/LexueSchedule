@@ -1,0 +1,113 @@
+package com.uml.lexueschedule.ScheduleModule.View.Activity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
+import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
+import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
+
+import java.util.ArrayList;
+
+public class AddCourseActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_course);
+
+        //确认添加
+        Button buttonSave=(Button)findViewById(R.id.ConfirmToAdd);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("tag","yes0");
+                //获取界面信息封装成一个新的类
+                //周几上课，开始节数，结束节数，课程名，开始周，结束周，课程名，教师名
+                //int wday,int stime,int etime,String ti,int sweek,int eweek,String a,String te;
+
+                EditText courseName=(EditText)findViewById(R.id.courseNameInAdd);
+                EditText classroom=(EditText)findViewById(R.id.classroomInAdd);
+                EditText weeks=(EditText)findViewById(R.id.WeeksInAdd);
+                EditText daySlot=(EditText)findViewById(R.id.daySlotInAdd);
+                EditText teacher=(EditText)findViewById(R.id.teacherInAdd);
+
+                Log.e("tag","yes0.5");
+                String courseNamestr= courseName.getText().toString();
+                Log.e("tag","yes1"+courseNamestr);
+                String classromstr=classroom.getText().toString();
+                String teacherstr=teacher.getText().toString();
+                String time=daySlot.getText().toString();
+                String dayOfWeekstr="";
+                int starttime;
+                int endtime;
+                try{
+                    dayOfWeekstr=time.substring(0,2);
+                    starttime=Integer.valueOf(time.substring(2,time.indexOf('-')));
+                    endtime=Integer.valueOf(time.substring(time.indexOf('-')+1));
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(AddCourseActivity.this,"请按照\"周三1-2\"格式填写节数",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int dayOfWeekint=-1;
+                switch (dayOfWeekstr)
+                {
+                    case "周一":
+                        dayOfWeekint=1;
+                        break;
+                    case "周二":
+                        dayOfWeekint=2;
+                        break;
+                    case "周三":
+                        dayOfWeekint=3;
+                        break;
+                    case "周四":
+                        dayOfWeekint=4;
+                        break;
+                    case "周五":
+                        dayOfWeekint=5;
+                        break;
+                    case "周六":
+                        dayOfWeekint=6;
+                        break;
+                    case "周日":
+                        dayOfWeekint=7;
+                        break;
+                    default:
+                        break;
+                }
+                String weeknumberstr=weeks.getText().toString();
+                int startweekint=-1;
+                int endweekint=-1;
+                try{
+                    startweekint=Integer.valueOf(weeknumberstr.substring(0,weeknumberstr.indexOf('-')));
+                    endweekint=Integer.valueOf(weeknumberstr.substring(weeknumberstr.indexOf('-')+1));
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(AddCourseActivity.this,"请按照\"1-15\"格式填写周数",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //int wday,int stime,int etime,String ti,int sweek,int eweek,String a,String te;
+                Course newcourse=new Course(dayOfWeekint,starttime,endtime,courseNamestr,startweekint,endweekint,classromstr,teacherstr);
+                //
+                ArrayList<Course> courses=new ArrayList<>();
+                courses.add(newcourse);
+                UploadData.upload(courses);
+                Schedule.getInstance().courses.add(newcourse);
+                finish();
+            }
+
+        });
+
+    }
+}

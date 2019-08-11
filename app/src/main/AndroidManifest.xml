@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uml.lexueschedule">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".MainModule.View.Activity.HomeActivity"
+            android:label="@string/title_activity_home"></activity>
+        <activity android:name=".MainModule.View.Activity.RegisterActivity" />
+        <activity android:name=".MainModule.View.Activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ScheduleModule.View.Activity.ImportscheduleActivity" />
+        <activity android:name=".ScheduleModule.View.Activity.BaseFuncActivity" />
+        <activity android:name=".ScheduleModule.View.Activity.AddCourseActivity" />
+        <activity android:name=".ScheduleModule.View.Activity.CoursedetailActivity" />
+        <activity android:name=".ScheduleModule.View.Activity.EditCourseActivity" />
+        <activity android:name=".ScheduleModule.View.Activity.WakeupActivity" />
+        <activity android:name=".ForumModule.View.Activity.ForumActivity" />
+        <activity android:name=".ForumModule.View.Activity.NewPostActivity" />
+        <activity android:name=".ForumModule.View.Activity.PostActivity" />
+    </application>
+
+</manifest>
