@@ -19,6 +19,16 @@ public class Schedule {
     }
     public static Schedule getInstance(){return mySchedule;}
 
+    public static Course getcoursebyid(int lessonID)
+    {
+        for(int i=0;i<lessonID;i++)
+        {
+            if(getInstance().courses.get(i).getLessonID()==lessonID)
+                return getInstance().courses.get(i);
+        }
+        return null;
+    }
+
     public List<MySubject> toList()
     {
         List<MySubject> courseslist = new ArrayList<>();
@@ -34,7 +44,7 @@ public class Schedule {
             int step=course.getEndtime()-start+1;
             int day=course.getWeekday();
             MySubject subject=new MySubject(term,name, room, teacher, weeks, start, step, day, -1,null);
-            subject.setId(course.getCourseId());
+            subject.setId(course.getLessonID());
             courseslist.add(subject);
         }
         Log.e("tag","在Schedule中还有"+courseslist.size()+"门课");

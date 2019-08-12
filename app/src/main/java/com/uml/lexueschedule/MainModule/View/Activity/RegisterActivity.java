@@ -1,14 +1,20 @@
 package com.uml.lexueschedule.MainModule.View.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +40,7 @@ import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private Button checkcode_btn;
     private Button commit_btn;
     private EditText user_edt;
@@ -53,11 +60,22 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void initView(){
 
+        //状态栏颜色
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         checkcode_btn = (Button) findViewById(R.id.getcheckcode_btn);
         commit_btn = (Button) findViewById(R.id.commit_regist_btn);
         user_edt = (EditText)findViewById(R.id.regist_user_edt);
         password_edt = (EditText)findViewById(R.id.regist_password_edt);
         checkcode_edt = (EditText)findViewById(R.id.checkcode_edt);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(null != actionBar)
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         checkcode_btn.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -72,6 +90,16 @@ public class RegisterActivity extends AppCompatActivity {
                 commit();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -144,7 +172,11 @@ public class RegisterActivity extends AppCompatActivity {
                         public void run() {
                             if(code == 1000) {
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                setContentView(R.layout.register_add_profile);
+                                Intent intent = new Intent(RegisterActivity.this, AddProfileActivity.class);
+                                intent.putExtra("userId", userStr);
+                                startActivity(intent);
+                                //销毁activity
+                                MyApplication.addDestroyActivity(RegisterActivity.this, "RegisterActivity");
                             }
                             if(code == 1001) {
                                 Toast.makeText(RegisterActivity.this, "用户已存在", Toast.LENGTH_SHORT).show();

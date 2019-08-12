@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.ScheduleModule.Util.Getdata;
@@ -23,8 +24,11 @@ public class ScheduleFragment extends Fragment {
 
     private View view;
 
-    public ScheduleFragment() {
+    private String userId;
+
+    public ScheduleFragment(String userId) {
         // Required empty public constructor
+        this.userId = userId;
     }
 
 
@@ -62,7 +66,9 @@ public class ScheduleFragment extends Fragment {
         checkschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(), "userId: "+userId, Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getActivity(), BaseFuncActivity.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });

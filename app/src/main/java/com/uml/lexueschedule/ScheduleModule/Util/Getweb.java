@@ -43,7 +43,7 @@ public class Getweb {
                 String t_teacher = elements6.get(3).text();
                 String teacher = t_teacher.substring(t_teacher.indexOf('：') + 1);
                 //将得到的课程加入Schedule
-                Course course = new Course(i, starttime, endtime, title, startweek, endweek, address, teacher);
+                Course course = new Course(i, starttime, endtime, title, startweek, endweek, address, teacher, -1);
                 mySchedule.addcourse(course);
             }
         }

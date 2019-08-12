@@ -98,7 +98,7 @@ public class AddCourseActivity extends AppCompatActivity {
                     return;
                 }
                 //int wday,int stime,int etime,String ti,int sweek,int eweek,String a,String te;
-                Course newcourse=new Course(dayOfWeekint,starttime,endtime,courseNamestr,startweekint,endweekint,classromstr,teacherstr);
+                Course newcourse=new Course(dayOfWeekint,starttime,endtime,courseNamestr,startweekint,endweekint,classromstr,teacherstr,-1);
                 //
                 ArrayList<Course> courses=new ArrayList<>();
                 courses.add(newcourse);

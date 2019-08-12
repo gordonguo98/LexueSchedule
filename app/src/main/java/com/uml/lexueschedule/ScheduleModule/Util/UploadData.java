@@ -5,11 +5,16 @@ import android.util.Log;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class UploadData {
@@ -41,7 +46,6 @@ public class UploadData {
     //private static String str="email=1127125637@qq.com&lesson_num=1&course_name_1=大学物理&week_num_1=1-12&weekday_1=2&class_num_1=6-7&teacher_1=黄敏兴&classroom_1=A2-302";
     public static void  upload(final ArrayList<Course> courses)
     {
-        Log.e("tag","yes");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -63,6 +67,31 @@ public class UploadData {
                     } else {
                         Log.e("tag","连接服务器失败" + responseCode);
                     }
+                    //修改201908100955
+                    //接收反馈
+                    InputStream in=connection.getInputStream();
+                    reader=new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response=new StringBuilder();
+                    String line;
+                    while((line=reader.readLine())!=null) {
+                        response.append(line);
+                    }
+                    Log.e("tag",response.toString());
+                    JSONObject jsonObject=new JSONObject(response.toString());
+                    //解析lessonid
+                    String strforlist=jsonObject.getString("lesson_id_list").replace("[","").replace("]","");
+                    ArrayList<String> lessonIDlist =new ArrayList<String>(Arrays.asList(strforlist.split(",")));
+                    Log.e("tag",lessonIDlist.toString());
+                    //解析courseid
+                    strforlist=jsonObject.getString("course_id_list").replace("[","").replace("]","");
+                    ArrayList<String> courseIDlist =new ArrayList<String>(Arrays.asList(strforlist.split(",")));
+                    Log.e("tag",courseIDlist.toString());
+                    for(int i=0;i<courses.size();i++)
+                    {
+                        courses.get(i).setLessonID(Integer.valueOf(lessonIDlist.get(i)));
+                        courses.get(i).setCourseID(Integer.valueOf(courseIDlist.get(i)));
+                    }
+                    //修改到此结束
                 } catch (Exception e) {
                     Log.e("tag","报告错误");
                     e.printStackTrace();
@@ -77,5 +106,4 @@ public class UploadData {
         courses.add(course);
         upload(courses);
     }
-
 }

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profile_toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0.0dip"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="230.0dip"
+                android:background="@color/grey_10"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profile_img"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    app:srcCompat="@drawable/ic_person" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_form"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mxlarge"
+                        android:layout_height="@dimen/spacing_mxlarge"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_person" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="fill_parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/grey_40">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/profile_name"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="名字" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mxlarge"
+                        android:layout_height="@dimen/spacing_mxlarge"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_domain" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="fill_parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/grey_40">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/profile_university"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="学校" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mxlarge"
+                        android:layout_height="@dimen/spacing_mxlarge"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_major" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="fill_parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/grey_40">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/profile_major"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="专业" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mxlarge"
+                        android:layout_height="@dimen/spacing_mxlarge"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_grade" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="fill_parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/grey_40">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/profile_grade"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="年级" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/profile_commit_btn"
+                android:layout_width="150.0dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_primary"
+                android:layout_gravity="center"
+                android:text="提交"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profile_photo_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_smlarge"
+            android:clickable="true"
+            android:tint="@android:color/white"
+            android:src="@drawable/ic_photo_camera"
+            app:backgroundTint="@color/blue_grey_800"
+            app:fabSize="normal"
+            app:layout_anchor="@+id/lyt_form"
+            app:layout_anchorGravity="end|center|top"
+            app:rippleColor="@android:color/white" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

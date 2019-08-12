@@ -1,3 +1,4 @@
+//孙瑞洲
 package com.uml.lexueschedule.ScheduleModule.Util;
 
 import android.util.Log;
@@ -5,16 +6,20 @@ import android.util.Log;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 
 public class Getdata {
@@ -47,7 +52,7 @@ public class Getdata {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Log.e("tag",html);
+                Log.e("tag","Getdata.java: html is: "+html);
                 try {
                    JSONObject jsonObject=new JSONObject(html);
                    int lessons_num=jsonObject.getInt("lessons_num");
@@ -65,8 +70,9 @@ public class Getdata {
                        String adderss=lesson.getString("classroom");
                        String teacher=lesson.getString("teacher");
                        int id=lesson.getInt("lesson_id");
-                       Course course=new Course(weekday,starttime,endtime,title,startweek,endweek,adderss,teacher);
-                       course.setCourseId(id);
+                       String courseId = lesson.getString("course_id");
+                       Course course=new Course(weekday,starttime,endtime,title,startweek,endweek,adderss,teacher,Integer.valueOf(courseId));
+                       course.setLessonID(id);
                        mySchedule.addcourse(course);
                    }
                    Log.e("tag","code="+jsonObject.getString("code"));

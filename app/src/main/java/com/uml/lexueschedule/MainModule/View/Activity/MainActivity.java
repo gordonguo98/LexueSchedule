@@ -10,10 +10,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,9 +36,9 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Button login_btn;
-    private Button register_btn;
-    private EditText user_edt;
-    private EditText password_edt;
+    private TextView register_btn;
+    private TextInputEditText user_edt;
+    private TextInputEditText password_edt;
 
     private static final int REQUEST_CODE_FOR_INTERNET = 100;
 
@@ -70,16 +73,22 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initView(){
 
-        register_btn = (Button) findViewById(R.id.register_btn);
+        //状态栏颜色
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        register_btn = (TextView) findViewById(R.id.register_btn);
         login_btn = (Button) findViewById(R.id.login_btn);
-        user_edt = (EditText)findViewById(R.id.user_edt);
-        password_edt = (EditText)findViewById(R.id.password_edt);
+        user_edt = (TextInputEditText)findViewById(R.id.user_edt);
+        password_edt = (TextInputEditText)findViewById(R.id.password_edt);
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                MyApplication.addDestroyActivity(MainActivity.this, "MainActivity");
             }
         });
 
@@ -99,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         //检查权限
         requestPermission();
 
-        String user_edt_str = user_edt.getText().toString();
+        final String user_edt_str = user_edt.getText().toString();
         String password_edt_str = password_edt.getText().toString();
 
         OkHttpClient mOkHttpClient=new OkHttpClient();
@@ -133,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                             if(code == 1000) {
                                 //登录成功，进入系统
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                intent.putExtra("userId", user_edt_str);
                                 startActivity(intent);
                             }
                             if(code == 1001){

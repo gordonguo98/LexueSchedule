@@ -28,11 +28,14 @@ public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView navView;
     private ViewPagerAdapter viewPagerAdapter;
 
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        userId = getIntent().getStringExtra("userId");
         initToolbar();
         initView();
     }
@@ -115,7 +118,7 @@ public class HomeActivity extends AppCompatActivity {
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new HomeFragment());
-        viewPagerAdapter.addFragment(new ScheduleFragment());
+        viewPagerAdapter.addFragment(new ScheduleFragment(userId));
         viewPagerAdapter.addFragment(new NotificationFragment());
         viewPager.setAdapter(viewPagerAdapter);
 

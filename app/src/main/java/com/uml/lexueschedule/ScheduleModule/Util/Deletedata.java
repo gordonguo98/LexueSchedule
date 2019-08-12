@@ -45,7 +45,7 @@ public class Deletedata {
         Schedule mySchedule=Schedule.getInstance();
         for(Course course:mySchedule.courses)
         {
-            if(course.getCourseId()==id)
+            if(course.getLessonID()==id)
             {
                 mySchedule.courses.remove(course);
                 break;

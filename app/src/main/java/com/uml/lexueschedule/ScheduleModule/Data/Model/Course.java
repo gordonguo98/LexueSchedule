@@ -15,9 +15,10 @@ public class Course implements Serializable {
     private int endweek;
     private String address;
     private String teacher;
-    private int courseId;
+    private int lessonID;
+    private int courseID;
     public Course(){}
-    public Course(int wday, int stime, int etime, String ti, int sweek, int eweek, String a, String te)
+    public Course(int wday,int stime,int etime,String ti,int sweek,int eweek,String a,String te,int courseId)
     {
         weekday=wday;
         starttime=stime;
@@ -27,9 +28,12 @@ public class Course implements Serializable {
         endweek=eweek;
         address=a;
         teacher=te;
-        courseId=-1;
+        lessonID=-1;
+        courseID=courseId;
     }
-    public int getCourseId(){return courseId;}
+    public int getCourseID(){return courseID;}
+    public void setCourseID(int id){courseID=id;}
+    public int getLessonID(){return lessonID;}
     public int getWeekday()
     {
         return weekday;
@@ -62,7 +66,7 @@ public class Course implements Serializable {
     {
         return teacher;
     }
-    public void setCourseId(int id){courseId=id;}
+    public void setLessonID(int id){lessonID=id;}
     public void setWeekday(int weekday){this.weekday=weekday;}
     public void setStarttime(int time){starttime=time;}
     public void setEndtime(int time){endtime=time;}
@@ -75,5 +79,6 @@ public class Course implements Serializable {
     {
         Log.e("tag",weekday+" "+starttime+" "+endtime+" "+title+" "+startweek+" "+endweek+" "+address+" "+teacher);
     }
+
 
 }

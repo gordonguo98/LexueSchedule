@@ -3,6 +3,10 @@ package com.uml.lexueschedule.ScheduleModule.View.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,12 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
-
-import com.uml.lexueschedule.ScheduleModule.Data.Model.MySubject;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Data.Model.MySubject;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.SubjectRepertory;
 import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
 import com.zhuangfei.timetable.TimetableView;
@@ -28,10 +28,6 @@ import com.zhuangfei.timetable.model.Schedule;
 import com.zhuangfei.timetable.view.WeekView;
 
 import java.util.List;
-
-/*import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;*/
 
 /**
  * 基础功能演示：
@@ -46,6 +42,8 @@ import android.support.v7.widget.PopupMenu;*/
  * 该界面的代码注释会比较详细，建议从此处开始看起
  */
 public class BaseFuncActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private String userId;
 
     private static final String TAG = "BaseFuncActivity";
 
@@ -65,6 +63,8 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_func);
+
+        userId = getIntent().getStringExtra("userId");
 
         moreButton = findViewById(R.id.id_more);
         moreButton.setOnClickListener(new View.OnClickListener() {
@@ -234,9 +234,11 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
             {
                 if(count==mTimetableView.curWeek())
                 {
+                    Toast.makeText(this, "userId: "+userId, Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(this,CoursedetailActivity.class);
-                    intent.putExtra("courseID",bean.getCourseId());
-                    Log.e("tag","courseID in baseactivity"+bean.getCourseId());
+                    intent.putExtra("lessonID",bean.getCourseId());
+                    intent.putExtra("userId", userId);
+                    Log.e("tag","lessonID in baseactivity"+bean.getCourseId());
                     startActivity(intent);
                 }
             }
@@ -313,7 +315,8 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
     //上传到数据库
     protected void upload()
     {
-        com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule mySchedule= com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule.getInstance();
+        com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule mySchedule=
+                com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule.getInstance();
         UploadData.upload(mySchedule.courses);
     }
 

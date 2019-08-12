@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,6 +75,7 @@ public class ForumActivity extends AppCompatActivity {
     private static final int STOP_REFRESHING = 101;
     private static final int DELETE_POST = 102;
     private static final int REQUEST_FOR_NEWPOSTACTIVITY = 103;
+    private static final int MAKE_TOAST = 104;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -176,28 +178,37 @@ public class ForumActivity extends AppCompatActivity {
                     Log.e("getData: ", "onResponse: responsebody is null!");
                 else {
                     Log.e("getData: ", "onResponse: responsebody is " + body);
-                    try {
-                        JSONObject jsonObject = JSON.parseObject(body);
-                        int code = (int) jsonObject.get("code");
-                        String msg = (String) jsonObject.get("msg");
-                        int record_num = (int) jsonObject.get("record_num");
-                        postList.clear();
-                        for(int i = 1; i <= record_num; i++){
-                            JSONObject post_json = (JSONObject) jsonObject.get("post_" + i);
-                            Post newPost = JSON.toJavaObject(post_json, Post.class);
-                            BitmapUtil bitmapUtil = new BitmapUtil();
-                            newPost.getCreator().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto(newPost.getCreator().getProfile_photo()));
-                            postList.add(newPost);
+                    if(!body.equals("500")) {
+                        try {
+                            Log.e("getData", "执行");
+                            JSONObject jsonObject = JSON.parseObject(body);
+                            int code = (int) jsonObject.get("code");
+                            String msg = (String) jsonObject.get("msg");
+                            int record_num = (int) jsonObject.get("record_num");
+                            postList.clear();
+                            for (int i = 1; i <= record_num; i++) {
+                                JSONObject post_json = (JSONObject) jsonObject.get("post_" + i);
+                                Post newPost = JSON.toJavaObject(post_json, Post.class);
+                                BitmapUtil bitmapUtil = new BitmapUtil();
+                                newPost.getCreator().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto(newPost.getCreator().getProfile_photo()));
+                                postList.add(newPost);
+                                Message message = new Message();
+                                message.what = UPDATE_POST_LIST;
+                                myHandler.sendMessage(message);
+                            }
                             Message message = new Message();
-                            message.what = UPDATE_POST_LIST;
+                            message.what = STOP_REFRESHING;
                             myHandler.sendMessage(message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("test", e.toString());
                         }
+                    }else{
+                        Log.e("getData", "else执行");
                         Message message = new Message();
-                        message.what = STOP_REFRESHING;
+                        message.what = MAKE_TOAST;
+                        message.arg1 = 1000;
                         myHandler.sendMessage(message);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("test", e.toString());
                     }
                 }
             }
@@ -300,7 +311,7 @@ public class ForumActivity extends AppCompatActivity {
             }
         });
 
-        myHandler = new MyHandler(postAdapter, refreshLayout, postList);
+        myHandler = new MyHandler(ForumActivity.this, postAdapter, refreshLayout, postList);
     }
 
     private void initImgLoadingOptions(){
@@ -326,16 +337,18 @@ public class ForumActivity extends AppCompatActivity {
     }
 
     private void getPost(){
-        getData(UrlHelper.URL_FOR_GETTING_POST + "?" + "course_id=" + 1);
+        getData(UrlHelper.URL_FOR_GETTING_POST + "?" + "course_id=" + courseId);
     }
 
     static class MyHandler extends Handler{
 
+        private Context context;
         private PostAdapter postAdapter;
         private SwipeRefreshLayout refreshLayout;
         private List<Post> postList;
 
-        public MyHandler(PostAdapter postAdapter, SwipeRefreshLayout refreshLayout, List<Post> postList){
+        public MyHandler(Context context, PostAdapter postAdapter, SwipeRefreshLayout refreshLayout, List<Post> postList){
+            this.context = context;
             this.postAdapter = postAdapter;
             this.refreshLayout = refreshLayout;
             this.postList = postList;
@@ -355,6 +368,10 @@ public class ForumActivity extends AppCompatActivity {
                 case DELETE_POST:
                     postList.remove(msg.arg1);
                     postAdapter.notifyDataSetChanged();
+                    break;
+                case MAKE_TOAST:
+                    if(msg.arg1 == 1000)
+                        Toast.makeText(context, "该课程下尚未有帖子", Toast.LENGTH_LONG).show();
                     break;
             }
         }
