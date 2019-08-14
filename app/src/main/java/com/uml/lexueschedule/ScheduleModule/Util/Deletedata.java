@@ -1,6 +1,10 @@
 package com.uml.lexueschedule.ScheduleModule.Util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
@@ -11,10 +15,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Deletedata {
-    public static void deleteCourse(int id)
+    public static void deleteCourse(final Activity activity, int id)
     {
+        String userId = activity.getSharedPreferences("loginlog", Context.MODE_PRIVATE)
+                .getString("userId", "");
+        if(userId.equals("")){
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, "账号未登录", Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
         //在云端数据库中删除
-        final String deletestring="{\"email\":\"1127125637@qq.com\",\"lesson_id\":"+id+"}";
+        final String deletestring="{\"email\":\""+userId+"\",\"lesson_id\":"+id+"}";
         new Thread(new Runnable() {
             @Override
             public void run() {

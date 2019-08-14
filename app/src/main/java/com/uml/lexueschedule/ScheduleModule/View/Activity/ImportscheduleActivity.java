@@ -8,11 +8,14 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 import com.uml.lexueschedule.ScheduleModule.Util.Getweb;
+import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
 
 public class ImportscheduleActivity extends AppCompatActivity {
 
@@ -67,9 +70,14 @@ public class ImportscheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Getweb.get(myhtml);
-                Intent intent=new Intent(ImportscheduleActivity.this, BaseFuncActivity.class);
-                startActivity(intent);
+                Schedule mySchedule=Schedule.getInstance();
+                UploadData.upload(ImportscheduleActivity.this, mySchedule.courses, true);
             }
         });
+    }
+
+    public void toBaseFunAC(){
+        Intent intent=new Intent(ImportscheduleActivity.this, BaseFuncActivity.class);
+        startActivity(intent);
     }
 }

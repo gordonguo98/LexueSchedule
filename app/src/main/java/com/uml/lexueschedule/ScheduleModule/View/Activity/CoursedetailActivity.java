@@ -18,7 +18,6 @@ import com.uml.lexueschedule.ScheduleModule.Util.Deletedata;
 
 public class CoursedetailActivity extends AppCompatActivity {
 
-    private String userId;
     private int lessonID=-1;
 
     @Override
@@ -28,7 +27,6 @@ public class CoursedetailActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         lessonID=intent.getIntExtra("lessonID",-1);
-        userId = intent.getStringExtra("userId");
 
         init();
     }
@@ -92,7 +90,7 @@ public class CoursedetailActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Deletedata.deleteCourse(lessonID);
+                Deletedata.deleteCourse(CoursedetailActivity.this, lessonID);
                 finish();
             }
         });
@@ -103,11 +101,8 @@ public class CoursedetailActivity extends AppCompatActivity {
                 Course course=Schedule.getcoursebyid(lessonID);
                 //论坛部分需要的courseid
                 int courseid=course.getCourseID();
-                Toast.makeText(CoursedetailActivity.this, "courseId is "+courseid+"\n"
-                        +"userId is "+userId, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(CoursedetailActivity.this, ForumActivity.class);
                 intent.putExtra("courseId", courseid);
-                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });

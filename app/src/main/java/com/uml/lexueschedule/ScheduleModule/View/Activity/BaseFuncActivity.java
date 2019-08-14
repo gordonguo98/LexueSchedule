@@ -43,8 +43,6 @@ import java.util.List;
  */
 public class BaseFuncActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String userId;
-
     private static final String TAG = "BaseFuncActivity";
 
     //控件
@@ -63,8 +61,6 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_func);
-
-        userId = getIntent().getStringExtra("userId");
 
         moreButton = findViewById(R.id.id_more);
         moreButton.setOnClickListener(new View.OnClickListener() {
@@ -234,10 +230,8 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
             {
                 if(count==mTimetableView.curWeek())
                 {
-                    Toast.makeText(this, "userId: "+userId, Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(this,CoursedetailActivity.class);
                     intent.putExtra("lessonID",bean.getCourseId());
-                    intent.putExtra("userId", userId);
                     Log.e("tag","lessonID in baseactivity"+bean.getCourseId());
                     startActivity(intent);
                 }
@@ -317,7 +311,7 @@ public class BaseFuncActivity extends AppCompatActivity implements View.OnClickL
     {
         com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule mySchedule=
                 com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule.getInstance();
-        UploadData.upload(mySchedule.courses);
+        UploadData.upload(BaseFuncActivity.this, mySchedule.courses, false);
     }
 
     @Override

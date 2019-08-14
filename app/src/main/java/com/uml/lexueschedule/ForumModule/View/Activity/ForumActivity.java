@@ -42,6 +42,7 @@ import com.uml.lexueschedule.ForumModule.Data.Model.Post;
 import com.uml.lexueschedule.ForumModule.Util.BitmapUtil;
 import com.uml.lexueschedule.ForumModule.Util.GlideImageLoader;
 import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
+import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -87,6 +88,8 @@ public class ForumActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
+        MyApplication.destroyActivity("AddProfileActivity");
+
         //设置状态栏，工具栏
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_forum_toolbar);
@@ -103,16 +106,18 @@ public class ForumActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(null != intent){
             courseId = intent.getIntExtra("courseId", -1);
-            userId = intent.getStringExtra("userId");
             //添加中间标题
-            addMiddleTitle(this, ""+courseId, toolbar);
+            addMiddleTitle(this, "课程ID: "+courseId, toolbar);
         }
+
+        userId = getSharedPreferences("loginlog", MODE_PRIVATE).getString("userId", "");
 
         verifyStoragePermissions(this);
 
         initView();
         initImgLoadingOptions();
         getPost();
+
     }
 
     @Override
@@ -183,22 +188,31 @@ public class ForumActivity extends AppCompatActivity {
                             Log.e("getData", "执行");
                             JSONObject jsonObject = JSON.parseObject(body);
                             int code = (int) jsonObject.get("code");
-                            String msg = (String) jsonObject.get("msg");
-                            int record_num = (int) jsonObject.get("record_num");
-                            postList.clear();
-                            for (int i = 1; i <= record_num; i++) {
-                                JSONObject post_json = (JSONObject) jsonObject.get("post_" + i);
-                                Post newPost = JSON.toJavaObject(post_json, Post.class);
-                                BitmapUtil bitmapUtil = new BitmapUtil();
-                                newPost.getCreator().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto(newPost.getCreator().getProfile_photo()));
-                                postList.add(newPost);
+                            final String msg = (String) jsonObject.get("msg");
+                            if(code == 1000) {
+                                int record_num = (int) jsonObject.get("record_num");
+                                postList.clear();
+                                for (int i = 1; i <= record_num; i++) {
+                                    JSONObject post_json = (JSONObject) jsonObject.get("post_" + i);
+                                    Post newPost = JSON.toJavaObject(post_json, Post.class);
+                                    BitmapUtil bitmapUtil = new BitmapUtil();
+                                    newPost.getCreator().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto(newPost.getCreator().getProfile_photo()));
+                                    postList.add(newPost);
+                                    Message message = new Message();
+                                    message.what = UPDATE_POST_LIST;
+                                    myHandler.sendMessage(message);
+                                }
                                 Message message = new Message();
-                                message.what = UPDATE_POST_LIST;
+                                message.what = STOP_REFRESHING;
                                 myHandler.sendMessage(message);
+                            }else{
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(ForumActivity.this, msg, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                            Message message = new Message();
-                            message.what = STOP_REFRESHING;
-                            myHandler.sendMessage(message);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("test", e.toString());

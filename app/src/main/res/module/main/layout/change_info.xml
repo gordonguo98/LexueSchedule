@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_large">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            app:srcCompat="@drawable/ic_person"
+            android:layout_width="@dimen/spacing_mxlarge"
+            android:layout_height="@dimen/spacing_mxlarge"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_60" />
+
+        <View
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="fill_parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_40">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/change_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="名字" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_large" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            app:srcCompat="@drawable/ic_domain"
+            android:layout_width="@dimen/spacing_mxlarge"
+            android:layout_height="@dimen/spacing_mxlarge"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_60" />
+
+        <View
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="fill_parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_40">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/change_university"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="学校" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_large" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            app:srcCompat="@drawable/ic_major"
+            android:layout_width="@dimen/spacing_mxlarge"
+            android:layout_height="@dimen/spacing_mxlarge"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_60" />
+
+        <View
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="fill_parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_40">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/change_major"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="专业" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/spacing_large" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            app:srcCompat="@drawable/ic_grade"
+            android:layout_width="@dimen/spacing_mxlarge"
+            android:layout_height="@dimen/spacing_mxlarge"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_60" />
+
+        <View
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="fill_parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_40">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/change_grade"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="年级" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+</LinearLayout>

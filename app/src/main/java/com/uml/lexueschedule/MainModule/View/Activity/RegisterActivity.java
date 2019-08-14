@@ -171,12 +171,12 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(code == 1000) {
+                                MyApplication.addDestroyActivity(RegisterActivity.this, "RegisterActivity");
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this, AddProfileActivity.class);
                                 intent.putExtra("userId", userStr);
+                                intent.putExtra("password", passwordStr);
                                 startActivity(intent);
-                                //销毁activity
-                                MyApplication.addDestroyActivity(RegisterActivity.this, "RegisterActivity");
                             }
                             if(code == 1001) {
                                 Toast.makeText(RegisterActivity.this, "用户已存在", Toast.LENGTH_SHORT).show();

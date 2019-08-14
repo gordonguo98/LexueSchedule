@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,8 +17,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,9 +32,12 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.io.File;
 
@@ -47,6 +49,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class AddProfileActivity extends AppCompatActivity {
 
@@ -60,7 +63,10 @@ public class AddProfileActivity extends AppCompatActivity {
     private ImageView profile_img;
 
     private String userId;
+    private String password;
     private String profile_img_path;
+
+    private boolean hasPickImg = false;
 
     private static final int REQUEST_CODE_CHOOSE = 3;
 
@@ -70,29 +76,11 @@ public class AddProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_profile);
 
         userId = getIntent().getStringExtra("userId");
+        password = getIntent().getStringExtra("password");
         initView();
 
         MyApplication.destroyActivity("MainActivity");
         MyApplication.destroyActivity("RegisterActivity");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_addprofile_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_pass){
-            Intent intent = new Intent(AddProfileActivity.this, HomeActivity.class);
-            intent.putExtra("userId", userId);
-            startActivity(intent);
-            this.onDestroy();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -125,7 +113,7 @@ public class AddProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO
-                if(name_edt.getText().toString().equals("")
+                if(!hasPickImg || name_edt.getText().toString().equals("")
                 ||university_edt.getText().toString().equals("")
                 ||major_edt.getText().toString().equals("")
                 ||grade_edt.getText().toString().equals("")) {
@@ -163,6 +151,7 @@ public class AddProfileActivity extends AppCompatActivity {
         multiBuilder.addFormDataPart("photo", file.getName(), fileBody);
 
         multiBuilder.addFormDataPart("email", userId);
+        multiBuilder.addFormDataPart("password", password);
         multiBuilder.addFormDataPart("name", name_edt.getText().toString());
         multiBuilder.addFormDataPart("university", university_edt.getText().toString());
         multiBuilder.addFormDataPart("major", major_edt.getText().toString());
@@ -186,10 +175,32 @@ public class AddProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 Log.e("test", "onResponse: 提交成功");
-                Log.e("test", "onResponse: 返回内容：" + response.body().string());
-                Intent intent = new Intent(AddProfileActivity.this, HomeActivity.class);
-                intent.putExtra("userId", userId);
-                startActivity(intent);
+                ResponseBody responseBody = response.body();
+                if(responseBody == null)
+                    return;
+                String responseStr = responseBody.string();
+                Log.e("test", "onResponse: 返回内容：" + responseStr);
+                if(responseStr.equals(""))
+                    return;
+                try {
+                    JSONObject responseJson = new JSONObject(responseStr);
+                    int code = responseJson.getInt("code");
+                    if(code == 1000){
+                        //记住登录状态
+                        SharedPreferences sp = getSharedPreferences("loginlog", MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sp.edit();
+                        ed.putString("userId", userId);
+                        ed.putString("logtime", new Date().toString());
+                        ed.commit();
+
+                        MyApplication.addDestroyActivity(AddProfileActivity.this, "AddProfileActivity");
+                        Intent intent = new Intent(AddProfileActivity.this, HomeActivity.class);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                    }
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -212,7 +223,7 @@ public class AddProfileActivity extends AppCompatActivity {
                 .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
                 .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                .captureStrategy(new CaptureStrategy(true, "com.gordon.forum.fileprovider"))//存储到哪里
+                .captureStrategy(new CaptureStrategy(true, "com.uml.lexueschedule.fileprovider"))//存储到哪里
                 .forResult(REQUEST_CODE_CHOOSE);//请求码
     }
 
@@ -225,6 +236,7 @@ public class AddProfileActivity extends AppCompatActivity {
                 List<Uri> mSelected = Matisse.obtainResult(data);
                 profile_img_path = getPath(AddProfileActivity.this, mSelected.get(0));
                 profile_img.setImageBitmap(getBitmapFromPath(profile_img_path));
+                hasPickImg = true;
             }else{
                 Toast.makeText(this, "没有选择图片", Toast.LENGTH_SHORT).show();
             }

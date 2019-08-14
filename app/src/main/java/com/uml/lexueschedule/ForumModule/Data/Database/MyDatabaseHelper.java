@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "forum.db";
+    private static final String DB_NAME = "lexue.db";
     private static final int DB_VERSION = 1;
 
     public MyDatabaseHelper(Context context){

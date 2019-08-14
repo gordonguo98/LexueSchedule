@@ -29,8 +29,8 @@ public class BitmapUtil implements Runnable{
         if(null != profilePhotoBitmap) {
             int width = profilePhotoBitmap.getWidth();
             int height = profilePhotoBitmap.getHeight();
-            int newWidth = 32;
-            int newHeight = 32;
+            int newWidth = 150;
+            int newHeight = 150;
             float scaleWidth = ((float) newWidth) / width;
             float scaleHeight = ((float) newHeight) / height;
             Matrix matrix = new Matrix();

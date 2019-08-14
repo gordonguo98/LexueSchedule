@@ -61,7 +61,7 @@ public class NewPostActivity extends AppCompatActivity {
 
     private String courseId;
     private String userId;
-    private boolean finishPosting = false;
+    private boolean finishPosting = true;
 
     private static final int REQUEST_CODE_CHOOSE = 3;
     private static final int REQUEST_FOR_RETURN = 103;
@@ -227,6 +227,13 @@ public class NewPostActivity extends AppCompatActivity {
         multiBuilder.addFormDataPart("image_num", images.size()+"");
         multiBuilder.addFormDataPart("file_num", fileList.size()+"");
 
+        Log.e("test", "发送json: "
+                +"\nemail:"+userId
+                +"\ncourse_id:"+courseId
+                +"\nquestion:"+editText.getText().toString()
+                +"\nimage_num:"+images.size()+""
+                +"\nfile_num:"+fileList.size()+"");
+
         MultipartBody requestBody = multiBuilder.build();
 
         OkHttpClient client = new OkHttpClient();
@@ -242,14 +249,14 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("test", "onFailure: 发帖失败");
-                finishPosting = true;
+                finishPosting = false;
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 Log.e("test", "onResponse: 发帖成功");
                 Log.e("test", "onResponse: 返回内容：" + response.body().string());
-                finishPosting = true;
+                finishPosting = false;
             }
         });
 
@@ -269,7 +276,7 @@ public class NewPostActivity extends AppCompatActivity {
                 .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
                 .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                .captureStrategy(new CaptureStrategy(true, "com.gordon.forum.fileprovider"))//存储到哪里
+                .captureStrategy(new CaptureStrategy(true, "com.uml.lexueschedule.fileprovider"))//存储到哪里
                 .forResult(REQUEST_CODE_CHOOSE);//请求码
     }
 

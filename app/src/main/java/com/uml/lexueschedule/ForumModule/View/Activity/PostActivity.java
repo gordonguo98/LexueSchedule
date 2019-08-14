@@ -229,9 +229,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //profilePhoto.setImageBitmap(BitmapUtil.getProfilePhoto(post.getCreator().getProfile_photo()));
+        //profilePhoto.setImageBitmap(BitmapConvertUtil.getProfilePhoto(post.getCreator().getProfile_photo()));
         BitmapUtil bitmapUtil = new BitmapUtil();
-        Bitmap bitmap = bitmapUtil.getProfilePhoto("http://img.redocn.com/sheying/20150213/mulanweichangcaoyuanfengjing_3951976.jpg");
+        Bitmap bitmap = bitmapUtil.getProfilePhoto(post.getCreator().getProfile_photo());
         Log.e("test", "initView: "+bitmap.toString());
         profilePhoto.setImageBitmap(bitmap);
 
@@ -455,7 +455,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                 Message newMessage = JSON.toJavaObject(message_json, Message.class);
                                 Log.i("test", "onResponse: " + newMessage.getContent());
                                 BitmapUtil bitmapUtil = new BitmapUtil();
-                                newMessage.getSender().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto("http://img.redocn.com/sheying/20150213/mulanweichangcaoyuanfengjing_3951976.jpg"));
+                                newMessage.getSender().setProfile_photo_bitmap(bitmapUtil.getProfilePhoto(
+                                        newMessage.getSender().getProfile_photo()));
                                 messagesList.add(newMessage);
                                 android.os.Message message = new android.os.Message();
                                 message.what = UPDATE_MESSAGE_LIST;
@@ -662,7 +663,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
                 .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                .captureStrategy(new CaptureStrategy(true, "com.gordon.forum.fileprovider"))//存储到哪里
+                .captureStrategy(new CaptureStrategy(true, "com.uml.lexueschedule.fileprovider"))//存储到哪里
                 .forResult(REQUEST_CODE_CHOOSE);//请求码
     }
 

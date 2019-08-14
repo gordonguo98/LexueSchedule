@@ -103,6 +103,12 @@
                     android:layout_width="0.0dip"
                     android:layout_height="@dimen/spacing_mlarge" />
 
+                <CheckBox
+                    android:id="@+id/login_checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="记住账号密码" />
+
                 <Button
                     android:id="@+id/login_btn"
                     android:layout_width="fill_parent"

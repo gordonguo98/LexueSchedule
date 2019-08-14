@@ -12,7 +12,7 @@ import java.io.File;
  * About:
  * —————————————————————————————————————
  * 修改：2019年 08月 08日
- * by Gordon
+ * by 郭晓凡
  */
 public class Constant {
 
@@ -20,7 +20,7 @@ public class Constant {
      * 下载路径
      */
     public final static String FILE_PATH = Environment.getExternalStorageDirectory()
-            .getAbsolutePath()+"/Forum/Download/";
+            .getAbsolutePath()+"/Luxue/";
 
     public static String getFilePath(){
         File file = new File(FILE_PATH);

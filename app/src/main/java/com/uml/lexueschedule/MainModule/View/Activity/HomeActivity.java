@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.MainModule.View.Adapter.ViewPagerAdapter;
 import com.uml.lexueschedule.MainModule.View.Fragment.HomeFragment;
@@ -38,6 +39,9 @@ public class HomeActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("userId");
         initToolbar();
         initView();
+
+        MyApplication.destroyActivity("MainActivity");
+        MyApplication.destroyActivity("AddProfileActivity");
     }
 
     private void initToolbar(){
@@ -118,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new HomeFragment());
-        viewPagerAdapter.addFragment(new ScheduleFragment(userId));
+        viewPagerAdapter.addFragment(new ScheduleFragment());
         viewPagerAdapter.addFragment(new NotificationFragment());
         viewPager.setAdapter(viewPagerAdapter);
 

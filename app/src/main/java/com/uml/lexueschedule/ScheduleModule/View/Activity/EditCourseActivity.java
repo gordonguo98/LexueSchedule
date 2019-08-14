@@ -207,7 +207,7 @@ public class EditCourseActivity extends AppCompatActivity {
                 Course newcourse=new Course(dayOfWeekint,starttime,endtime,courseNamestr,startweekint,endweekint,classromstr,teacherstr,-1);
                 newcourse.print();
                 Course oldcourse=Schedule.getcoursebyid(lessonID);
-                Editcourse.edit(oldcourse,newcourse);
+                Editcourse.edit(EditCourseActivity.this, oldcourse,newcourse);
                 oldcourse.print();
                 /*Deletedata.deleteCourse(courseID);
                 UploadData.upload(newcourse);

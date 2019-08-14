@@ -1,7 +1,10 @@
 //孙瑞洲
 package com.uml.lexueschedule.ScheduleModule.Util;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
@@ -32,7 +35,7 @@ public class Getdata {
         }
         return sb.toString();
     }
-    public static void getdata() throws MalformedURLException, IOException
+    public static void getdata(final Activity activity) throws MalformedURLException, IOException
     {
         new Thread(new Runnable() {
             @Override
@@ -40,7 +43,18 @@ public class Getdata {
                 InputStream is = null;
                 Log.e("tag","yes");
                 try {
-                    is = new URL("http://212.64.92.236:20000/api/v1/lesson/?email=1127125637@qq.com").openStream();
+                    String userId = activity.getSharedPreferences("loginlog", Context.MODE_PRIVATE)
+                            .getString("userId", "");
+                    if(userId.equals("")){
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, "账号未登录", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    }
+                    is = new URL("http://212.64.92.236:20000/api/v1/lesson/?email="+userId).openStream();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

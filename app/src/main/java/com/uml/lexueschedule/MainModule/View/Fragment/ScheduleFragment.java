@@ -24,11 +24,7 @@ public class ScheduleFragment extends Fragment {
 
     private View view;
 
-    private String userId;
-
-    public ScheduleFragment(String userId) {
-        // Required empty public constructor
-        this.userId = userId;
+    public ScheduleFragment() {
     }
 
 
@@ -50,7 +46,7 @@ public class ScheduleFragment extends Fragment {
     private void initView(View view){
         //从服务器获取课程信息
         try {
-            Getdata.getdata();
+            Getdata.getdata(getActivity());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,9 +62,7 @@ public class ScheduleFragment extends Fragment {
         checkschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "userId: "+userId, Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getActivity(), BaseFuncActivity.class);
-                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,9 @@
 package com.uml.lexueschedule.ScheduleModule.Util;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 
@@ -15,14 +18,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Editcourse {
-    public static void edit(final Course oldcourse, final Course newcourse)
+    public static void edit(final Activity activity, final Course oldcourse, final Course newcourse)
     {
        ///修改云端数据库
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    String modifystring="{\"email\":\"1127125637@qq.com\",\"lesson_id\":"+oldcourse.getLessonID()+",";
+                    String userId = activity.getSharedPreferences("loginlog", Context.MODE_PRIVATE)
+                            .getString("userId", "");
+                    if(userId.equals("")){
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, "账号未登录", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    }
+                    String modifystring="{\"email\":\""+userId+"\",\"lesson_id\":"+oldcourse.getLessonID()+",";
                     modifystring+="\"course_name\""+":"+"\""+newcourse.getTitle()+"\""+","
                             +"\"day_of_week\""+":"+newcourse.getWeekday()+","
                             +"\"week_num\""+":"+"\""+newcourse.getStartweek()+"-"+newcourse.getEndweek()+"\""+","

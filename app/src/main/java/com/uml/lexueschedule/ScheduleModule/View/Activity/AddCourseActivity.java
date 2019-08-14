@@ -102,7 +102,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 //
                 ArrayList<Course> courses=new ArrayList<>();
                 courses.add(newcourse);
-                UploadData.upload(courses);
+                UploadData.upload(AddCourseActivity.this, courses, false);
                 Schedule.getInstance().courses.add(newcourse);
                 finish();
             }
