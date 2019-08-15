@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uml.lexueschedule.ForumModule.View.Activity.ForumActivity;
+import com.uml.lexueschedule.MainModule.Util.StatusBarUtil;
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.uml.lexueschedule.ScheduleModule.Util.Deletedata;
 
 public class CoursedetailActivity extends AppCompatActivity {
@@ -24,6 +28,10 @@ public class CoursedetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coursedetail);
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         Intent intent=getIntent();
         lessonID=intent.getIntExtra("lessonID",-1);
@@ -76,7 +84,7 @@ public class CoursedetailActivity extends AppCompatActivity {
         daySlot.setText("节数： "+dayofWeek+course.getStarttime()+"-"+course.getEndtime());
         teacher.setText("老师： "+course.getTeacher());
 
-        Button edit=(Button)findViewById(R.id.edit);
+        FloatingActionButton edit=(FloatingActionButton)findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,18 +94,31 @@ public class CoursedetailActivity extends AppCompatActivity {
                 startActivity(intentToEdit);
             }
         });
-        Button delete=(Button)findViewById(R.id.delete);
+        final AppCompatActivity ac=this;
+        FloatingActionButton delete=(FloatingActionButton)findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(ac))
+                {
+                    Toast.makeText(CoursedetailActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Deletedata.deleteCourse(CoursedetailActivity.this, lessonID);
                 finish();
             }
         });
-        Button toForum=(Button)findViewById(R.id.toForum);
+        FloatingActionButton toForum=(FloatingActionButton)findViewById(R.id.toForum);
         toForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(ac))
+                {
+                    Toast.makeText(CoursedetailActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Course course=Schedule.getcoursebyid(lessonID);
                 //论坛部分需要的courseid
                 int courseid=course.getCourseID();

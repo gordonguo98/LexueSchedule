@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item android:id="@+id/top0"
-		android:title="上传到数据库"/>
 
 	<item android:id="@+id/top13"
 	android:title="月份宽度增大"/>

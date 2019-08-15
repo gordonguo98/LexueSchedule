@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScheduleModule.View.Activity.ImportscheduleActivity" />
-        <activity android:name=".ScheduleModule.View.Activity.BaseFuncActivity" />
         <activity android:name=".ScheduleModule.View.Activity.AddCourseActivity" />
         <activity android:name=".ScheduleModule.View.Activity.CoursedetailActivity" />
         <activity android:name=".ScheduleModule.View.Activity.EditCourseActivity" />

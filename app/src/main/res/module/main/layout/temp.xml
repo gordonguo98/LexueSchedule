@@ -1,449 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/grey_10"
+    android:background="@color/grey_5"
     android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="none"
-        android:scrollingCache="true">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <include layout="@layout/toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintStart_toEndOf="@id/edit"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_delete" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/toForum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintStart_toEndOf="@id/delete"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_forum" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit" />
+
+
+    <TextView
+        android:id="@+id/courseNameIndetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Androi开发"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/grey_90"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view2" />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/spacing_xxlarge"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingRight="@dimen/spacing_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/courseNameIndetail">
+
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
+
+        <ImageButton
+            android:layout_width="@dimen/spacing_xmlarge"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_40"
+            app:srcCompat="@drawable/ic_location" />
+
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_middle">
+            android:text="教室："
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="2.0dip"
-                app:cardElevation="2.0dip"
-                app:cardUseCompatPadding="true">
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingBottom="@dimen/spacing_middle">
+        <TextView
+            android:id="@+id/classroomInDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
+    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:layout_marginBottom="@dimen/spacing_middle"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/spacing_xxlarge"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingRight="@dimen/spacing_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll1">
 
-                        <View
-                            android:layout_width="@dimen/spacing_large"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <ImageView
-                            android:layout_width="@dimen/spacing_xxlarge"
-                            android:layout_height="@dimen/spacing_xxlarge"
-                            android:src="@drawable/logo_round"
-                            android:tint="@color/colorPrimary" />
+        <ImageButton
+            android:layout_width="@dimen/spacing_xmlarge"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_40"
+            app:srcCompat="@drawable/ic_week" />
 
-                        <View
-                            android:layout_width="@dimen/spacing_large"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="周数："
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="关于乐学"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                                android:textColor="@color/grey_80" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="\@SCUT"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/grey_40" />
-                        </LinearLayout>
-                    </LinearLayout>
+        <TextView
+            android:id="@+id/dayOfWeekInDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
+    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/spacing_xxlarge"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingRight="@dimen/spacing_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll2">
 
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_info" />
+        <ImageButton
+            android:layout_width="@dimen/spacing_xmlarge"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_40"
+            app:srcCompat="@drawable/ic_day" />
 
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="节数："
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="版本"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1.0"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/grey_40" />
-                        </LinearLayout>
-                    </LinearLayout>
+        <TextView
+            android:id="@+id/daySlotInDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
+    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/spacing_xxlarge"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingRight="@dimen/spacing_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll3">
 
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_sync" />
+        <ImageButton
+            android:layout_width="@dimen/spacing_xmlarge"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:background="@android:color/transparent"
+            android:tint="@color/grey_40"
+            app:srcCompat="@drawable/ic_person" />
 
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="更新日志"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="@color/grey_80" />
-                    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="老师："
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
+        <View
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="40dip" />
 
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/teacherInDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80" />
+    </LinearLayout>
 
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_book" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="许可证"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="@color/grey_90" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:layout_width="0.0dip"
-                android:layout_height="@dimen/spacing_middle" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:cardCornerRadius="2.0dip"
-                app:cardElevation="2.0dip"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingBottom="@dimen/spacing_middle">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:layout_marginRight="@dimen/spacing_mlarge"
-                        android:layout_marginBottom="@dimen/spacing_middle"
-                        android:text="作者"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_person" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="UML小组"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="SCUT"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/grey_40" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_public" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Git"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="https://github.com/guoxiaofan980520/LexueSchedule.git"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/grey_40" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:layout_width="0.0dip"
-                android:layout_height="@dimen/spacing_middle" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:cardCornerRadius="2.0dip"
-                app:cardElevation="2.0dip"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/spacing_middle"
-                    android:paddingBottom="@dimen/spacing_middle">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:layout_marginRight="@dimen/spacing_mlarge"
-                        android:layout_marginBottom="@dimen/spacing_middle"
-                        android:text="地址"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_90"
-                        app:fontFamily="sans-serif-medium" />
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_business" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="华南理工大学"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80"
-                                app:fontFamily="sans-serif-medium" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="SCUT"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:textColor="@color/grey_40" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/spacing_xxlarge"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_medium"
-                        android:paddingRight="@dimen/spacing_medium">
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_xmlarge"
-                            android:layout_height="@dimen/spacing_xmlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_location" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_mlarge"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="广州市番禺区广州大学城"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="@color/grey_80" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:layout_width="0.0dip"
-                android:layout_height="@dimen/spacing_large" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

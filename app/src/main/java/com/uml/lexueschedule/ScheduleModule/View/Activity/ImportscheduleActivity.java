@@ -1,6 +1,5 @@
 package com.uml.lexueschedule.ScheduleModule.View.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,10 +7,10 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.uml.lexueschedule.MainModule.Util.StatusBarUtil;
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 import com.uml.lexueschedule.ScheduleModule.Util.Getweb;
@@ -48,6 +47,9 @@ public class ImportscheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importschedule);
 
+        StatusBarUtil.transparencyBar(this);
+        StatusBarUtil.StatusBarLightMode(this);
+
         //设置webView属性
         webView=(WebView)findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -77,7 +79,6 @@ public class ImportscheduleActivity extends AppCompatActivity {
     }
 
     public void toBaseFunAC(){
-        Intent intent=new Intent(ImportscheduleActivity.this, BaseFuncActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

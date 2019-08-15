@@ -6,6 +6,9 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import com.uml.lexueschedule.MainModule.View.Fragment.ScheduleFragment;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 
@@ -35,11 +38,20 @@ public class Getdata {
         }
         return sb.toString();
     }
-    public static void getdata(final Activity activity) throws MalformedURLException, IOException
+    public static void getdata(final Activity activity, final Fragment fragment) throws MalformedURLException, IOException
     {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                if(!Connect.isConnectIsNomarl(activity)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, "检查网络连接", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    return;
+                }
                 InputStream is = null;
                 Log.e("tag","yes");
                 try {
@@ -58,6 +70,7 @@ public class Getdata {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Log.e("tag","is==null is "+(is==null));
                 Log.e("tag","yes0");
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                 String html = null;
@@ -68,6 +81,7 @@ public class Getdata {
                 }
                 Log.e("tag","Getdata.java: html is: "+html);
                 try {
+                    mySchedule.courses.clear();
                    JSONObject jsonObject=new JSONObject(html);
                    int lessons_num=jsonObject.getInt("lessons_num");
                    for(int i=1;i<lessons_num+1;i++)
@@ -90,6 +104,7 @@ public class Getdata {
                        mySchedule.addcourse(course);
                    }
                    Log.e("tag","code="+jsonObject.getString("code"));
+                    ((ScheduleFragment) fragment).afterGettingData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

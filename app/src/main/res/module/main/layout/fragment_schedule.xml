@@ -1,41 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainModule.View.Fragment.ScheduleFragment">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/importscheduleformweb"
-        android:layout_width="wrap_content"
+    <include layout="@layout/header_base_func" />
+
+    <com.zhuangfei.timetable.view.WeekView
+        android:id="@+id/id_weekview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="导入课表"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_of_schedulefragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_below="@id/toolbar_rl"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_of_schedulefragment"
-        android:layout_width="wrap_content"
+    <com.zhuangfei.timetable.TimetableView
+        android:id="@+id/id_timetableView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/id_weekview"
+        android:background="@color/app_white"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/spacing_smlarge"
+        android:layout_marginTop="@dimen/spacing_middle"
+        android:layout_marginRight="@dimen/spacing_smlarge"
+        android:layout_marginBottom="@dimen/spacing_middle"
+        fab:fab_addButtonColorNormal="@color/colorPrimary"
+        fab:fab_addButtonColorPressed="@color/blue_900"
+        fab:fab_addButtonPlusIconColor="@color/app_white">
 
-    <Button
-        android:id="@+id/checkschedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="查看课表"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/importscheduleformweb" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_import"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_smlarge"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_smlarge"
+            android:layout_marginBottom="@dimen/spacing_middle"
+            android:clickable="true"
+            fab:fab_colorNormal="@color/app_white_slight"
+            fab:fab_colorPressed="@color/grey_500"
+            fab:fab_icon="@drawable/ic_import"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_size="mini"
+            fab:fab_title="导入课表" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_smlarge"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_smlarge"
+            android:layout_marginBottom="@dimen/spacing_middle"
+            android:clickable="true"
+            fab:fab_colorNormal="@color/app_white_slight"
+            fab:fab_colorPressed="@color/grey_500"
+            fab:fab_icon="@drawable/ic_insert"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_size="mini"
+            fab:fab_title="插入数据库" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_fromcloud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_smlarge"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_smlarge"
+            android:layout_marginBottom="@dimen/spacing_middle"
+            android:clickable="true"
+            fab:fab_colorNormal="@color/app_white_slight"
+            fab:fab_colorPressed="@color/grey_500"
+            fab:fab_icon="@drawable/ic_cloud"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_size="mini"
+            fab:fab_title="从云端导入课表" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_fromlocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_smlarge"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_smlarge"
+            android:layout_marginBottom="@dimen/spacing_middle"
+            android:clickable="true"
+            fab:fab_colorNormal="@color/app_white_slight"
+            fab:fab_colorPressed="@color/grey_500"
+            fab:fab_icon="@drawable/ic_local"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_size="mini"
+            fab:fab_title="从本地导入课表" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</RelativeLayout>

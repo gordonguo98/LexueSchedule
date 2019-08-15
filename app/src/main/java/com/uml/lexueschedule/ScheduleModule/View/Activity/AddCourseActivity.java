@@ -3,6 +3,7 @@ package com.uml.lexueschedule.ScheduleModule.View.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
 
 import java.util.ArrayList;
@@ -23,11 +25,22 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
 
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
         //确认添加
         Button buttonSave=(Button)findViewById(R.id.ConfirmToAdd);
+        final AppCompatActivity ac=this;
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(ac))
+                {
+                    Toast.makeText(AddCourseActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Log.e("tag","yes0");
                 //获取界面信息封装成一个新的类
                 //周几上课，开始节数，结束节数，课程名，开始周，结束周，课程名，教师名

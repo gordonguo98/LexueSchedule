@@ -2,13 +2,11 @@
 package com.uml.lexueschedule.ScheduleModule.Util;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
-import com.uml.lexueschedule.ScheduleModule.View.Activity.BaseFuncActivity;
 import com.uml.lexueschedule.ScheduleModule.View.Activity.ImportscheduleActivity;
 
 import org.json.JSONObject;
@@ -110,6 +108,9 @@ public class UploadData {
                         courses.get(i).setLessonID(Integer.valueOf(lessonIDlist.get(i)));
                         courses.get(i).setCourseID(Integer.valueOf(courseIDlist.get(i)));
                     }
+
+                    Log.e("tag", "run: 调用上传");
+
                     //修改到此结束
                     if(isImportAC)
                         ((ImportscheduleActivity) activity).toBaseFunAC();
