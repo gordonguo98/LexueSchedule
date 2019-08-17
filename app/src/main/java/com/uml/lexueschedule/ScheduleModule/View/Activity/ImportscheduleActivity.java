@@ -1,18 +1,26 @@
 package com.uml.lexueschedule.ScheduleModule.View.Activity;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.uml.lexueschedule.ForumModule.Util.Constant;
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 import com.uml.lexueschedule.ScheduleModule.Util.Connect;
@@ -50,22 +58,41 @@ public class ImportscheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importschedule);
 
-        // StatusBarUtil.transparencyBar(this);
-        // StatusBarUtil.StatusBarLightMode(this);
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         String url = getIntent().getStringExtra("url");
 
         //设置webView属性
         webView=(WebView)findViewById(R.id.web_view);
-        webView.getSettings().setJavaScriptEnabled(true);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(final WebView view, String url) {
                 // 在结束加载网页时会回调，获取页面内容
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementsByTagName('html')[0].innerHTML);");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            Thread.sleep(2000);
+                            view.loadUrl("javascript:window.java_obj.showSource("
+                                    + "document.getElementsByTagName('html')[0].innerHTML);");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
                 super.onPageFinished(view, url);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return false;
             }
         });
         //webView.loadUrl("file:///android_asset/course.html");
@@ -80,7 +107,10 @@ public class ImportscheduleActivity extends AppCompatActivity {
                     Toast.makeText(ImportscheduleActivity.this, "无网络连接", Toast.LENGTH_LONG).show();
                     return;
                 }
-                loge(myhtml);
+                webView.loadUrl("javascript:window.java_obj.showSource("
+                        + "document.getElementsByTagName('html')[0].innerHTML);");
+                SystemClock.sleep(1000);
+                //loge(myhtml);
                 Getweb.get(myhtml);
                 Schedule mySchedule=Schedule.getInstance();
                 UploadData.updateSchedule(ImportscheduleActivity.this, mySchedule.courses, true);
@@ -89,6 +119,12 @@ public class ImportscheduleActivity extends AppCompatActivity {
     }
 
     public void toBaseFunAC(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ImportscheduleActivity.this, "导入成功", Toast.LENGTH_LONG).show();
+            }
+        });
         finish();
     }
 
