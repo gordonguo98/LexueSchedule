@@ -29,11 +29,13 @@ import com.uml.lexueschedule.ScheduleModule.Data.Database.MyDatabasehelper;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.MySubject;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.SubjectRepertory;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.uml.lexueschedule.ScheduleModule.Util.Getdata;
 import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
 import com.uml.lexueschedule.ScheduleModule.View.Activity.AddCourseActivity;
 import com.uml.lexueschedule.ScheduleModule.View.Activity.CoursedetailActivity;
 import com.uml.lexueschedule.ScheduleModule.View.Activity.ImportscheduleActivity;
+import com.uml.lexueschedule.ScheduleModule.View.Activity.OpenEsActivity;
 import com.zhuangfei.timetable.TimetableView;
 import com.zhuangfei.timetable.listener.ISchedule;
 import com.zhuangfei.timetable.listener.IWeekView;
@@ -92,7 +94,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private void initView(View view){
         //从服务器获取课程信息
         try {
-            Getdata.getdata(getActivity(), this);
+            //判断网络是否可用
+            if(!Connect.isConnectIsNomarl(getContext())) {
+                Toast.makeText(getContext(),"网络无连接, 显示本地课表",Toast.LENGTH_SHORT).show();
+                getCoursesFromLocal();
+            }else {
+                Getdata.getdata(getActivity(), this);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +128,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         importSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), ImportscheduleActivity.class);
+                if(!Connect.isConnectIsNomarl(getContext())){
+                    Toast.makeText(getContext(), "无网络连接", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Intent intent=new Intent(getActivity(), OpenEsActivity.class);
                 startActivity(intent);
             }
         });
@@ -267,7 +279,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         mTimetableView.source(mySubjects)
                 .curWeek(1)
                 .curTerm("大三下学期")
-                .maxSlideItem(10)
+                .maxSlideItem(12)
                 .monthWidthDp(30)
                 //透明度
                 //日期栏0.1f、侧边栏0.1f，周次选择栏0.6f
@@ -313,13 +325,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         mTimetableView.onDateBuildListener()
                 .onHighLight();
-        Toast.makeText(getContext(), "onStart", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getContext(), "onResume", Toast.LENGTH_LONG).show();
         mySubjects = SubjectRepertory.myloadDefaultSubjects();
         mWeekView.source(mySubjects).showView();
         mTimetableView.source(mySubjects).updateView();

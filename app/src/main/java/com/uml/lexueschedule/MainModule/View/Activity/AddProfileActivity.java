@@ -25,8 +25,10 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uml.lexueschedule.ForumModule.Util.MyGlideEngine;
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -112,6 +114,13 @@ public class AddProfileActivity extends AppCompatActivity {
         commit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(AddProfileActivity.this)) {
+                    Toast.makeText(AddProfileActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //TODO
                 if(!hasPickImg || name_edt.getText().toString().equals("")
                 ||university_edt.getText().toString().equals("")
@@ -140,6 +149,12 @@ public class AddProfileActivity extends AppCompatActivity {
      */
     private void commitProfile(){
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(AddProfileActivity.this)) {
+            Toast.makeText(AddProfileActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         MediaType MEDIA_TYPE;
         MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
         multiBuilder.setType(MultipartBody.FORM);
@@ -161,7 +176,7 @@ public class AddProfileActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient();
         final Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/user/")
+                .url(UrlHelper.URL_FOR_POSTING_INFO)
                 .post(requestBody)
                 .build();
 

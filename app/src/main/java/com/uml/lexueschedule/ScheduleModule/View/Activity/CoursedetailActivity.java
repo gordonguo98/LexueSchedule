@@ -1,10 +1,14 @@
 package com.uml.lexueschedule.ScheduleModule.View.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,6 +33,12 @@ public class CoursedetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coursedetail);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(null != actionBar)
+            actionBar.setDisplayShowTitleEnabled(false);
+
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -37,6 +47,19 @@ public class CoursedetailActivity extends AppCompatActivity {
         lessonID=intent.getIntExtra("lessonID",-1);
 
         init();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //初始化界面
@@ -52,8 +75,8 @@ public class CoursedetailActivity extends AppCompatActivity {
         Course course=Schedule.getcoursebyid(lessonID);
 
         courseName.setText(course.getTitle());
-        classroom.setText("教室： "+course.getAddress());
-        dayOfWeek.setText("周数： "+course.getStartweek()+"-"+course.getEndweek());
+        classroom.setText(course.getAddress());
+        dayOfWeek.setText(course.getStartweek()+"-"+course.getEndweek());
         String dayofWeek="";
         switch (course.getWeekday())
         {
@@ -81,8 +104,8 @@ public class CoursedetailActivity extends AppCompatActivity {
             default:
                 break;
         }
-        daySlot.setText("节数： "+dayofWeek+course.getStarttime()+"-"+course.getEndtime());
-        teacher.setText("老师： "+course.getTeacher());
+        daySlot.setText(dayofWeek+course.getStarttime()+"-"+course.getEndtime());
+        teacher.setText(course.getTeacher());
 
         FloatingActionButton edit=(FloatingActionButton)findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {

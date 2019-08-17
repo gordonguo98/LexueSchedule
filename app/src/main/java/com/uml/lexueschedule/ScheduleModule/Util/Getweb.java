@@ -23,6 +23,8 @@ public class Getweb {
         Elements elements1=doc.select("#kblist_table");
         Elements elements2=elements1.select("tbody");//获取希望的kblist_table模块
 
+        mySchedule.courses.clear();
+
         for(int i=1;i<8;i++) {//对每周进行分析
             Elements elements3 = elements2.select("#xq_"+i);
             Elements elements4 = elements3.select("tr");

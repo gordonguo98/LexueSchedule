@@ -3,16 +3,19 @@ package com.uml.lexueschedule.ScheduleModule.View.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uml.lexueschedule.MainModule.Util.StatusBarUtil;
 import com.uml.lexueschedule.R;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.uml.lexueschedule.ScheduleModule.Util.Getweb;
 import com.uml.lexueschedule.ScheduleModule.Util.UploadData;
 
@@ -47,8 +50,10 @@ public class ImportscheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importschedule);
 
-        StatusBarUtil.transparencyBar(this);
-        StatusBarUtil.StatusBarLightMode(this);
+        // StatusBarUtil.transparencyBar(this);
+        // StatusBarUtil.StatusBarLightMode(this);
+
+        String url = getIntent().getStringExtra("url");
 
         //设置webView属性
         webView=(WebView)findViewById(R.id.web_view);
@@ -63,22 +68,34 @@ public class ImportscheduleActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
             }
         });
-
-        webView.loadUrl("file:///android_asset/course.html");
+        //webView.loadUrl("file:///android_asset/course.html");
+        webView.loadUrl(url);
         //webView.loadUrl("https://sso.scut.edu.cn/cas/login?service=http%3A%2F%2Fxsjw2018.scuteo.com%2Fsso%2Fdriotlogin");
         //设置Button
         Button button=(Button)findViewById(R.id.v_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!Connect.isConnectIsNomarl(ImportscheduleActivity.this)){
+                    Toast.makeText(ImportscheduleActivity.this, "无网络连接", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                loge(myhtml);
                 Getweb.get(myhtml);
                 Schedule mySchedule=Schedule.getInstance();
-                UploadData.upload(ImportscheduleActivity.this, mySchedule.courses, true);
+                UploadData.updateSchedule(ImportscheduleActivity.this, mySchedule.courses, true);
             }
         });
     }
 
     public void toBaseFunAC(){
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        CookieSyncManager.createInstance(this);
+        CookieManager.getInstance().removeAllCookie();
+        super.onDestroy();
     }
 }

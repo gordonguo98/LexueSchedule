@@ -54,7 +54,7 @@ dependencies {
     //课表控件
     implementation project(path: ':TimetableView')
     //Jsoup
-    implementation 'org.jsoup:jsoup:1.12.1'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.8.1'
     //Forum Module
     implementation(name: 'exfilepicker', ext: 'aar')
     implementation 'androidx.recyclerview:recyclerview:1.0.0'

@@ -107,6 +107,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView commentsRV;
     private ImageView like;
 
+    public ImageView imagesIv;
+    public ImageView attachmentIv;
+
     private MyHandler myHandler;
 
     private static final int REQUEST_CODE_CHOOSE = 3;
@@ -191,15 +194,17 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 });
                 commentDialogFragment.setOnPhotoListener(new CommentDialogFragment.OnPhotoListener() {
                     @Override
-                    public void OnPhoto(List<ImageItem> contentImages) {
+                    public void OnPhoto(List<ImageItem> contentImages, ImageView v) {
                         //TODO
+                        PostActivity.this.imagesIv = v;
                         pickMessagePhoto(contentImages);
                     }
                 });
                 commentDialogFragment.setOnAttachmentListener(new CommentDialogFragment.OnAttachmentListener() {
                     @Override
-                    public void OnAttachment(List<String> contentFiles) {
+                    public void OnAttachment(List<String> contentFiles, ImageView v) {
                         //TODO
+                        PostActivity.this.attachmentIv = v;
                         pickMessageAttachment(contentFiles);
                     }
                 });
@@ -685,6 +690,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "没有选择图片", Toast.LENGTH_SHORT).show();
             }
 
+            Toast.makeText(PostActivity.this, "图片数："+contentImages.size(), Toast.LENGTH_LONG).show();
+            if(contentImages.size() != 0)
+                imagesIv.setImageResource(R.drawable.ic_photo_blue_24dp);
+            else
+                imagesIv.setImageResource(R.drawable.ic_photo_black_24dp);
+
         } else if(requestCode == EX_FILE_PICKER_RESULT){
             ExFilePickerResult result = ExFilePickerResult.getFromIntent(data);
             if (result != null && result.getCount() > 0) {
@@ -704,6 +715,11 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(PostActivity.this,
                             "不支持文件夹", Toast.LENGTH_SHORT).show();
                 }
+            Toast.makeText(PostActivity.this, "文件数："+contentFiles.size(), Toast.LENGTH_LONG).show();
+            if(contentFiles.size() != 0)
+                attachmentIv.setImageResource(R.drawable.ic_attachment_pressed_24dp);
+            else
+                attachmentIv.setImageResource(R.drawable.ic_attachment_24dp);
         }
     }
 

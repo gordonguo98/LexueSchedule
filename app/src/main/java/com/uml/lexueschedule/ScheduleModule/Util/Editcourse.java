@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 
 
@@ -47,7 +48,7 @@ public class Editcourse {
                     Log.e("tag",modifystring);
                     HttpURLConnection connection=null;
                     BufferedReader reader = null;
-                    URL url= new URL("http://212.64.92.236:20000/api/v1/lesson/");
+                    URL url= new URL(UrlHelper.URL_FOR_MODIFYING_LESSON);
                     connection=(HttpURLConnection)url.openConnection();
                     connection.setRequestMethod("PUT");
                     Log.e("tag","yes1");

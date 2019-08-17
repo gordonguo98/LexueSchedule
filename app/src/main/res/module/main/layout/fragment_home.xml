@@ -21,6 +21,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/homefragment_photocl"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -32,6 +33,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_person"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +97,6 @@
                             android:id="@+id/homefragment_useridtv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1716422554@qq.com"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80" />
 
@@ -127,7 +128,6 @@
                             android:id="@+id/homefragment_nametv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="小明"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80" />
 
@@ -159,7 +159,6 @@
                             android:id="@+id/homefragment_universitytv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="华南理工大学"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80" />
 
@@ -191,7 +190,6 @@
                             android:id="@+id/homefragment_majortv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="软件工程"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80" />
 
@@ -223,7 +221,6 @@
                             android:id="@+id/homefragment_gradetv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2017级"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/grey_80" />
 

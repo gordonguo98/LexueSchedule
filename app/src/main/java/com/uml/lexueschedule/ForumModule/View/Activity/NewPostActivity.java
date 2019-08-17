@@ -61,7 +61,6 @@ public class NewPostActivity extends AppCompatActivity {
 
     private String courseId;
     private String userId;
-    private boolean finishPosting = true;
 
     private static final int REQUEST_CODE_CHOOSE = 3;
     private static final int REQUEST_FOR_RETURN = 103;
@@ -130,11 +129,6 @@ public class NewPostActivity extends AppCompatActivity {
                 return false;
             }
             publishPost();
-            while(finishPosting);
-            Intent intent = new Intent();
-            intent.putExtra("IsSuccess", 1);
-            setResult(REQUEST_FOR_RETURN, intent);
-            finish();
             return true;
         }
 
@@ -249,14 +243,23 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("test", "onFailure: 发帖失败");
-                finishPosting = false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(NewPostActivity.this, "发帖失败", Toast.LENGTH_LONG).show();
+                    }
+                });
+                finish();
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 Log.e("test", "onResponse: 发帖成功");
                 Log.e("test", "onResponse: 返回内容：" + response.body().string());
-                finishPosting = false;
+                Intent intent = new Intent();
+                intent.putExtra("IsSuccess", 1);
+                setResult(REQUEST_FOR_RETURN, intent);
+                finish();
             }
         });
 

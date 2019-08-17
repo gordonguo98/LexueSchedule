@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.MainModule.View.Fragment.ScheduleFragment;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
@@ -66,7 +67,7 @@ public class Getdata {
                         });
                         return;
                     }
-                    is = new URL("http://212.64.92.236:20000/api/v1/lesson/?email="+userId).openStream();
+                    is = new URL(UrlHelper.URL_FOR_GETTING_SCHEDULE + "?email="+userId).openStream();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

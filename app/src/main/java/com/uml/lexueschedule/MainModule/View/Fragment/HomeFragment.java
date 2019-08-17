@@ -33,11 +33,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uml.lexueschedule.ForumModule.Util.BitmapUtil;
 import com.uml.lexueschedule.ForumModule.Util.Constant;
 import com.uml.lexueschedule.ForumModule.Util.MyGlideEngine;
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.MainModule.Data.Model.UserInfo;
 import com.uml.lexueschedule.MainModule.Util.BitmapConvertUtil;
+import com.uml.lexueschedule.MainModule.View.Activity.AddProfileActivity;
 import com.uml.lexueschedule.MainModule.View.Activity.MainActivity;
 import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -152,6 +155,11 @@ public class HomeFragment extends Fragment {
         change_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(getContext())) {
+                    Toast.makeText(getContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 showInputDialog();
             }
         });
@@ -160,6 +168,11 @@ public class HomeFragment extends Fragment {
         change_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(getContext())) {
+                    Toast.makeText(getContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 showMultiInputDialog();
             }
         });
@@ -168,6 +181,11 @@ public class HomeFragment extends Fragment {
         exit_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(getContext())) {
+                    Toast.makeText(getContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 exitLogin();
             }
         });
@@ -176,7 +194,11 @@ public class HomeFragment extends Fragment {
         feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(getContext())) {
+                    Toast.makeText(getContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 
@@ -195,10 +217,16 @@ public class HomeFragment extends Fragment {
      */
     private void getUserInfo(final String userId){
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(getContext())) {
+            Toast.makeText(getContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         OkHttpClient mOkHttpClient=new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/user/?email="+userId)
+                .url(UrlHelper.URL_FOR_GETTING_INFO + "?email="+userId)
                 .get()
                 .build();
 
@@ -339,7 +367,7 @@ public class HomeFragment extends Fragment {
 
         OkHttpClient client = new OkHttpClient();
         final Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/user/")
+                .url(UrlHelper.URL_FOR_POSTING_INFO)
                 .post(requestBody)
                 .build();
 

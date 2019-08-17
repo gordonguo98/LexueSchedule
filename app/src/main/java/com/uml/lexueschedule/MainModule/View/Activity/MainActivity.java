@@ -18,8 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
+import com.uml.lexueschedule.ScheduleModule.View.Activity.AddCourseActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -144,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //判断网络是否可用
+                if(!Connect.isConnectIsNomarl(MainActivity.this)) {
+                    Toast.makeText(MainActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 final String user_edt_str = user_edt.getText().toString();
                 String password_edt_str = password_edt.getText().toString();
 
@@ -170,10 +179,16 @@ public class MainActivity extends AppCompatActivity {
         //检查权限
         requestPermission();
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(MainActivity.this)) {
+            Toast.makeText(MainActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         OkHttpClient mOkHttpClient=new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/user/?email="+userId)
+                .url(UrlHelper.URL_FOR_GETTING_INFO + "?email="+userId)
                 .get()
                 .build();
 
@@ -222,6 +237,12 @@ public class MainActivity extends AppCompatActivity {
         //检查权限
         requestPermission();
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(MainActivity.this)) {
+            Toast.makeText(MainActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //如果勾选了复选框
         if(checkBox.isChecked()) {
 
@@ -239,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/auth/")
+                .url(UrlHelper.URL_FOR_LOGIN)
                 .post(formBody)
                 .build();
 

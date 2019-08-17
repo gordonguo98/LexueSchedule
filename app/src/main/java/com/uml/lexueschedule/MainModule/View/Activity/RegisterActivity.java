@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.MyApplication;
 import com.uml.lexueschedule.R;
+import com.uml.lexueschedule.ScheduleModule.Util.Connect;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -107,6 +109,12 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void getCheckCode(){
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(RegisterActivity.this)) {
+            Toast.makeText(RegisterActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         final String userStr = user_edt.getText().toString();//邮箱
 
         new Thread(new Runnable() {//创建子线程
@@ -139,6 +147,12 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void commit(){
 
+        //判断网络是否可用
+        if(!Connect.isConnectIsNomarl(RegisterActivity.this)) {
+            Toast.makeText(RegisterActivity.this,"网络无连接",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         final String userStr = user_edt.getText().toString();//邮箱
         final String passwordStr = password_edt.getText().toString();//密码
         final String checkcodeStr = checkcode_edt.getText().toString();//确认验证码栏
@@ -151,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://212.64.92.236:20000/api/v1/register/")
+                .url(UrlHelper.URL_FOR_REGISTER)
                 .post(formBody)
                 .build();
 
@@ -203,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private int getWebInfo(String a) {
         try {
-            String registerUrl = "http://212.64.92.236:20000/api/v1/register/?email=";
+            String registerUrl = UrlHelper.URL_FOR_CHECK_CODE + "?email=";
             registerUrl = registerUrl.concat(a);
             URL url = new URL(registerUrl);
 

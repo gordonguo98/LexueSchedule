@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.uml.lexueschedule.ForumModule.Util.UrlHelper;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Course;
 import com.uml.lexueschedule.ScheduleModule.Data.Model.Schedule;
 
@@ -36,7 +37,7 @@ public class Deletedata {
                 HttpURLConnection connection=null;
                 BufferedReader reader = null;
                 try{
-                    URL url= new URL("http://212.64.92.236:20000/api/v1/lesson/");
+                    URL url= new URL(UrlHelper.URL_FOR_DELETING_LESSON);
                     connection=(HttpURLConnection)url.openConnection();
                     connection.setRequestMethod("DELETE");
                     connection.setConnectTimeout(8000);

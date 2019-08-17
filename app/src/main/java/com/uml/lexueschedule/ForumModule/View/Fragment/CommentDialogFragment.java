@@ -80,17 +80,17 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image_btn_photo:
-                Toast.makeText(getActivity(), "Choose photos Activity", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Choose photos Activity", Toast.LENGTH_SHORT).show();
                 if(null != onPhotoListener)
-                    onPhotoListener.OnPhoto(contentImages);
+                    onPhotoListener.OnPhoto(contentImages, (ImageView) v);
                 break;
             case R.id.image_btn_attachment:
-                Toast.makeText(getActivity(), "Choose Files Activity", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Choose Files Activity", Toast.LENGTH_SHORT).show();
                 if(null != onAttachmentListener)
-                    onAttachmentListener.OnAttachment(contentFiles);
+                    onAttachmentListener.OnAttachment(contentFiles, (ImageView) v);
                 break;
             case R.id.image_btn_comment_send:
-                Toast.makeText(getActivity(), commentEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), commentEditText.getText().toString(), Toast.LENGTH_SHORT).show();
                 if(null != onSendListener)
                     onSendListener.OnSend(commentEditText.getText().toString(), contentImages, contentFiles);
                 dismiss();
@@ -117,10 +117,11 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     }
 
     public interface OnPhotoListener{
-        public void OnPhoto(List<ImageItem> contentImages);
+        public void OnPhoto(List<ImageItem> contentImages, ImageView v);
     }
 
     public interface OnAttachmentListener{
-        public void OnAttachment(List<String> contentFiles);
+        public void OnAttachment(List<String> contentFiles, ImageView v);
     }
+
 }

@@ -87,7 +87,7 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1.0"
                         android:background="@android:color/transparent"
-                        android:hint="Search or type URL"
+                        android:hint="教务系统地址"
                         android:imeOptions="actionSearch"
                         android:maxLines="1"
                         android:singleLine="true">
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab"
+                    android:id="@+id/fab_forward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -115,14 +115,8 @@
                     app:elevation="4.0dip"
                     app:fabSize="normal"
                     app:rippleColor="@android:color/white"
-                    app:srcCompat="@drawable/ic_search" />
+                    app:srcCompat="@drawable/ic_forward" />
 
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
