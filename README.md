@@ -1,9 +1,21 @@
 # LexueSchedule
-## UML项目——乐学课程表
+# UML项目——乐学课程表
 
-### 课表导入
+## 课表导入
 
-### 项目结构
+ **流程：**
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/1.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/2.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/3.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/4.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/5.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/6.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/7.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/8.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/9.png)
+ ![index](https://github.com/guoxiaofan980520/LexueSchedule/raw/master/MyImages/10.png)
+
+## 项目结构
 ```
 .
 ├─app
