@@ -1,57 +1,61 @@
 # LexueSchedule
 ## UML项目——乐学课程表
+
+### 课表导入
+
 ### 项目结构
 ```
 .
 ├─app
+│  ├─libs
+│  ├─release
 │  └─src
+│      ├─androidTest
 │      ├─main
-│      │  ├─assets                            //存放外部资源
+│      │  ├─assets
 │      │  ├─java
 │      │  │  └─com
 │      │  │      └─uml
 │      │  │          └─lexueschedule
-│      │  │              ├─ForumModule        //论坛
-│      │  │              │  ├─Data
-│      │  │              │  │  ├─Adapter
-│      │  │              │  │  ├─Database
-│      │  │              │  │  └─Model
-│      │  │              │  ├─Util
-│      │  │              │  └─View
-│      │  │              │      ├─Activity
-│      │  │              │      ├─Adapter
-│      │  │              │      └─Fragment
-│      │  │              ├─MainModule         //主界面
-│      │  │              │  ├─Data
-│      │  │              │  ├─Util
-│      │  │              │  └─View
-│      │  │              │      ├─Activity
-│      │  │              │      ├─Adapter
-│      │  │              │      └─Fragment
-│      │  │              └─ScheduleModule     //课表
-│      │  │                  ├─Data
-│      │  │                  │  ├─Adapter
-│      │  │                  │  └─Model
-│      │  │                  ├─Util
-│      │  │                  └─View
-│      │  │                      ├─Activity
-│      │  │                      └─Fragment
+│      │  │              ├─Data
+│      │  │              │  ├─Adapter
+│      │  │              │  ├─Database
+│      │  │              │  └─Model
+│      │  │              ├─Util
+│      │  │              └─View
+│      │  │                  ├─Activity
+│      │  │                  ├─Fragment
+│      │  │                  └─Layout
 │      │  └─res
 │      │      ├─color
 │      │      ├─drawable
+│      │      ├─drawable-v24
+│      │      ├─mipmap-anydpi-v26
+│      │      ├─mipmap-hdpi
+│      │      ├─mipmap-mdpi
+│      │      ├─mipmap-xhdpi
+│      │      ├─mipmap-xxhdpi
+│      │      ├─mipmap-xxxhdpi
 │      │      ├─module
-│      │      │  ├─forum                      //论坛
+│      │      │  ├─forum
 │      │      │  │  ├─drawable
 │      │      │  │  ├─layout
 │      │      │  │  └─menu
-│      │      │  ├─main                       //主界面
+│      │      │  ├─main
 │      │      │  │  ├─drawable
 │      │      │  │  ├─layout
-│      │      │  │  └─menu
-│      │      │  └─schedule                   //课表
+│      │      │  │  ├─menu
+│      │      │  │  └─values
+│      │      │  └─schedule
 │      │      │      ├─drawable
 │      │      │      ├─layout
 │      │      │      └─menu
-│      │      └─values
+│      │      ├─values
+│      │      └─xml
+│      └─test
+│          └─java
+│              └─com
+│                  └─uml
+│                      └─lexueschedule
 └─TimetableView
 ```

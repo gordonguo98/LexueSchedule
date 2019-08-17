@@ -25,6 +25,7 @@
         android:id="@+id/multiple_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
@@ -32,6 +33,7 @@
         android:layout_marginTop="@dimen/spacing_middle"
         android:layout_marginRight="@dimen/spacing_smlarge"
         android:layout_marginBottom="@dimen/spacing_middle"
+        fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_addButtonColorNormal="@color/colorPrimary"
         fab:fab_addButtonColorPressed="@color/blue_900"
         fab:fab_addButtonPlusIconColor="@color/app_white">
@@ -48,7 +50,6 @@
             fab:fab_colorNormal="@color/app_white_slight"
             fab:fab_colorPressed="@color/grey_500"
             fab:fab_icon="@drawable/ic_import"
-            fab:fab_labelStyle="@style/menu_labels_style"
             fab:fab_size="mini"
             fab:fab_title="导入课表" />
 
@@ -64,9 +65,8 @@
             fab:fab_colorNormal="@color/app_white_slight"
             fab:fab_colorPressed="@color/grey_500"
             fab:fab_icon="@drawable/ic_insert"
-            fab:fab_labelStyle="@style/menu_labels_style"
             fab:fab_size="mini"
-            fab:fab_title="插入数据库" />
+            fab:fab_title="保存课表到本地" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_fromcloud"
@@ -80,9 +80,8 @@
             fab:fab_colorNormal="@color/app_white_slight"
             fab:fab_colorPressed="@color/grey_500"
             fab:fab_icon="@drawable/ic_cloud"
-            fab:fab_labelStyle="@style/menu_labels_style"
             fab:fab_size="mini"
-            fab:fab_title="从云端导入课表" />
+            fab:fab_title="获取云端课表" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_fromlocal"
@@ -96,9 +95,8 @@
             fab:fab_colorNormal="@color/app_white_slight"
             fab:fab_colorPressed="@color/grey_500"
             fab:fab_icon="@drawable/ic_local"
-            fab:fab_labelStyle="@style/menu_labels_style"
             fab:fab_size="mini"
-            fab:fab_title="从本地导入课表" />
+            fab:fab_title="获取本地课表" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

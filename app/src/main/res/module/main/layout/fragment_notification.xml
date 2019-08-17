@@ -83,7 +83,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:gravity="center_vertical"
                         android:minHeight="@dimen/spacing_xxlarge"
                         android:orientation="horizontal"
@@ -128,6 +128,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/update_ll"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -162,6 +163,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/help_ll"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -181,7 +183,7 @@
                             android:layout_height="@dimen/spacing_xmlarge"
                             android:background="@android:color/transparent"
                             android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_book" />
+                            app:srcCompat="@drawable/ic_help" />
 
                         <View
                             android:layout_width="@dimen/spacing_mlarge"
@@ -190,7 +192,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="许可证"
+                            android:text="帮助"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_90" />
                     </LinearLayout>
@@ -232,7 +234,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:gravity="center_vertical"
                         android:minHeight="@dimen/spacing_xxlarge"
                         android:orientation="horizontal"
@@ -277,6 +279,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/git_ll"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -361,7 +364,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:gravity="center_vertical"
                         android:minHeight="@dimen/spacing_xxlarge"
                         android:orientation="horizontal"
@@ -409,7 +412,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:gravity="center_vertical"
                         android:minHeight="@dimen/spacing_xxlarge"
                         android:orientation="horizontal"

@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * by 郭晓凡
+ */
+
 public class MyApplication extends Application {
 
     private static Map<String, Activity> destroyMap = new HashMap<>();

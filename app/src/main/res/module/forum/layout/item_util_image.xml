@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.uml.lexueschedule.ForumModule.View.SquareLayout
+<com.uml.lexueschedule.View.Layout.SquareLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#ffffff"
@@ -37,4 +37,4 @@
         android:src="@drawable/default_image"
         android:visibility="gone" />
 
-</com.uml.lexueschedule.ForumModule.View.SquareLayout>
+</com.uml.lexueschedule.View.Layout.SquareLayout>

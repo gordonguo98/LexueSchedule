@@ -17,27 +17,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ScheduleModule.View.Activity.OpenEsActivity"></activity>
-        <activity android:name=".MainModule.View.Activity.AddProfileActivity" />
+        <activity android:name=".View.Activity.FeedbackActivity" />
+        <activity android:name=".View.Activity.OpenEsActivity" />
+        <activity android:name=".View.Activity.AddProfileActivity" />
         <activity
-            android:name=".MainModule.View.Activity.HomeActivity"
+            android:name=".View.Activity.HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".MainModule.View.Activity.RegisterActivity" />
-        <activity android:name=".MainModule.View.Activity.MainActivity">
+        <activity android:name=".View.Activity.RegisterActivity" />
+        <activity android:name=".View.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScheduleModule.View.Activity.ImportscheduleActivity" />
-        <activity android:name=".ScheduleModule.View.Activity.AddCourseActivity" />
-        <activity android:name=".ScheduleModule.View.Activity.CoursedetailActivity" />
-        <activity android:name=".ScheduleModule.View.Activity.EditCourseActivity" />
-        <activity android:name=".ScheduleModule.View.Activity.WakeupActivity" />
-        <activity android:name=".ForumModule.View.Activity.ForumActivity" />
-        <activity android:name=".ForumModule.View.Activity.NewPostActivity" />
-        <activity android:name=".ForumModule.View.Activity.PostActivity" />
+        <activity android:name=".View.Activity.ImportscheduleActivity" />
+        <activity android:name=".View.Activity.AddCourseActivity" />
+        <activity android:name=".View.Activity.CoursedetailActivity" />
+        <activity android:name=".View.Activity.EditCourseActivity" />
+        <activity android:name=".View.Activity.WakeupActivity" />
+        <activity android:name=".View.Activity.ForumActivity" />
+        <activity android:name=".View.Activity.NewPostActivity" />
+        <activity android:name=".View.Activity.PostActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

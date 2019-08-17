@@ -135,6 +135,10 @@
                 android:id="@+id/change_grade"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_expand_arrow"
+                android:drawableRight="@drawable/ic_expand_arrow"
+                android:editable="false"
+                android:focusable="false"
                 android:hint="年级" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

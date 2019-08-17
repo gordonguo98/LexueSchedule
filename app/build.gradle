@@ -71,7 +71,10 @@ dependencies {
     //eventbus
     implementation 'org.greenrobot:eventbus:3.0.0'
     //浮动菜单
-    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    //implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation(name: 'floatingactionbutton', ext: 'aar')
     //状态栏
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    //邮件客户端
+    implementation 'com.teprinciple:mailsender:1.1.0'
 }

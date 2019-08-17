@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item android:id="@+id/grade_2019"
+	    android:title="2019级"/>
+	<item android:id="@+id/grade_2018"
+	    android:title="2018级"/>
+	<item android:id="@+id/grade_2017"
+		android:title="2017级"/>
+	<item android:id="@+id/grade_2016"
+		android:title="2016级"/>
+	<item android:id="@+id/grade_2015"
+		android:title="2015级"/>
+	<item android:id="@+id/grade_2014"
+		android:title="2014级"/>
+	<item android:id="@+id/grade_2013"
+		android:title="2013级"/>
+	<item android:id="@+id/grade_2012"
+		android:title="2012级"/>
+
+	
+</menu>
