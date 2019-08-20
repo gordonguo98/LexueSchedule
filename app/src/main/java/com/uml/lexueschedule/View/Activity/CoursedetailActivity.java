@@ -75,6 +75,8 @@ public class CoursedetailActivity extends AppCompatActivity {
 
         Course course=Schedule.getcoursebyid(lessonID);
 
+        course.print();
+
         courseName.setText(course.getTitle());
         classroom.setText(course.getAddress());
         dayOfWeek.setText(course.getStartweek()+"-"+course.getEndweek());

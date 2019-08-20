@@ -178,7 +178,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 mySubjects = SubjectRepertory.myloadDefaultSubjects();
                 mWeekView.source(mySubjects).showView();
                 mTimetableView.source(mySubjects).updateView();
-                Toast.makeText(getContext(), "成功获取课表", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -379,7 +378,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     protected void display(List<Schedule> beans) {
         String str = "";
         for (Schedule bean : beans) {
-            List<Integer>weeklist=bean.getWeekList();
+            List<Integer> weeklist=bean.getWeekList();
             for(int count:weeklist)
             {
                 if(count==mTimetableView.curWeek())
@@ -461,7 +460,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     protected void upload() {
         com.uml.lexueschedule.Data.Model.Schedule mySchedule=
                 com.uml.lexueschedule.Data.Model.Schedule.getInstance();
-        UploadData.upload(getActivity(), mySchedule.courses, false);
+        UploadData.upload(getActivity(), mySchedule.courses, false, false);
     }
 
     @Override

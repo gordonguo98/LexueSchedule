@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFEFEF"
-    tools:context=".Activity.ForumActivity">
+    tools:context=".View.Activity.ForumActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_forum_toolbar"

@@ -25,7 +25,7 @@ public class Schedule {
 
     public static Course getcoursebyid(int lessonID)
     {
-        for(int i=0;i<lessonID;i++)
+        for(int i=0;i<getInstance().courses.size();i++)
         {
             if(getInstance().courses.get(i).getLessonID()==lessonID)
                 return getInstance().courses.get(i);

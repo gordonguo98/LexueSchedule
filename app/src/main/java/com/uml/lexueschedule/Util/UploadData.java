@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.uml.lexueschedule.Data.Model.Course;
 import com.uml.lexueschedule.Data.Model.Schedule;
+import com.uml.lexueschedule.View.Activity.AddCourseActivity;
 import com.uml.lexueschedule.View.Activity.ImportscheduleActivity;
 
 import org.json.JSONObject;
@@ -63,7 +64,7 @@ public class UploadData {
 
     //测试用字符串
     //private static String str="email=1127125637@qq.com&lesson_num=1&course_name_1=大学物理&week_num_1=1-12&weekday_1=2&class_num_1=6-7&teacher_1=黄敏兴&classroom_1=A2-302";
-    public static void  upload(final Activity activity, final ArrayList<Course> courses, final boolean isImportAC)
+    public static void  upload(final Activity activity, final ArrayList<Course> courses, final boolean isImportAC, final boolean isAddAC)
     {
         new Thread(new Runnable() {
             @Override
@@ -114,11 +115,17 @@ public class UploadData {
                         courses.get(i).setCourseID(Integer.valueOf(courseIDlist.get(i)));
                     }
 
+                    for(Course c: courses){
+                        c.print();
+                    }
+
                     Log.e("tag", "run: 调用上传");
 
                     //修改到此结束
                     if(isImportAC)
                         ((ImportscheduleActivity) activity).toBaseFunAC();
+                    if(isAddAC)
+                        ((AddCourseActivity) activity).afterAdding(courses);
                 } catch (Exception e) {
                     Log.e("tag","报告错误");
                     e.printStackTrace();
@@ -131,7 +138,7 @@ public class UploadData {
     {
         ArrayList<Course> courses=new ArrayList<>();
         courses.add(course);
-        upload(activity, courses, false);
+        upload(activity, courses, false, false);
     }
 
     public static void updateSchedule(final Activity activity, final ArrayList<Course> courses, final boolean isImportAC){
@@ -179,7 +186,7 @@ public class UploadData {
                     }
                     Log.e("tag",response.toString());
                     JSONObject jsonObject=new JSONObject(response.toString());
-                    upload(activity, courses, isImportAC);
+                    upload(activity, courses, isImportAC, false);
                     Log.e("tag", "run: 调用删除课表");
                 } catch (Exception e) {
                     Log.e("tag","报告错误");

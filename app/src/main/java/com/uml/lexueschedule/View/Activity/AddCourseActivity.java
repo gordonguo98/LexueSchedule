@@ -1,6 +1,7 @@
 package com.uml.lexueschedule.View.Activity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -127,15 +128,18 @@ public class AddCourseActivity extends AppCompatActivity {
                 //int wday,int stime,int etime,String ti,int sweek,int eweek,String a,String te;
                 Course newcourse=new Course(dayOfWeekint,starttime,endtime,courseNamestr,startweekint,endweekint,classromstr,teacherstr,-1);
                 //
-                ArrayList<Course> courses=new ArrayList<>();
+                final ArrayList<Course> courses=new ArrayList<>();
                 courses.add(newcourse);
-                UploadData.upload(AddCourseActivity.this, courses, false);
-                Schedule.getInstance().courses.add(newcourse);
-                finish();
+                UploadData.upload(AddCourseActivity.this, courses, false, true);
             }
 
         });
 
+    }
+
+    public void afterAdding(ArrayList<Course> courses){
+        Schedule.getInstance().courses.addAll(courses);
+        finish();
     }
 
 

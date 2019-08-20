@@ -80,7 +80,7 @@ public class Course implements Serializable {
     public void setTeacher(String teacher){this.teacher=teacher;}
     public void print()
     {
-        Log.e("tag",weekday+" "+starttime+" "+endtime+" "+title+" "+startweek+" "+endweek+" "+address+" "+teacher);
+        Log.e("tag",weekday+" "+starttime+" "+endtime+" "+title+" "+startweek+" "+endweek+" "+address+" "+teacher+" "+lessonID);
     }
 
 
